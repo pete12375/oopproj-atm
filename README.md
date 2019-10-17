@@ -1,2 +1,2 @@
-# oopproj-atm
+# OOP Project
 Hello
