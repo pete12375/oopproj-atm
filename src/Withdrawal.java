@@ -8,7 +8,7 @@ public class Withdrawal extends Transaction
    private CashDispenser cashDispenser; // reference to cash dispenser
 
    // constant corresponding to menu option to cancel
-   private final static int CANCELED = 6;
+   private final static int CANCELED = 7;
 
    // Withdrawal constructor
    public Withdrawal( int userAccountNumber, Screen atmScreen, 
@@ -92,19 +92,20 @@ public class Withdrawal extends Transaction
       Screen screen = getScreen(); // get screen reference
       
       // array of amounts to correspond to menu numbers
-      int amounts[] = { 0, 20, 40, 60, 100, 200 };
+      int[] amounts = { 0, 200, 400, 500, 800, 1000};
 
       // loop while no valid choice has been made
       while ( userChoice == 0 )
       {
          // display the menu
          screen.displayMessageLine( "\nWithdrawal Menu:" );
-         screen.displayMessageLine( "1 - $20" );
-         screen.displayMessageLine( "2 - $40" );
-         screen.displayMessageLine( "3 - $60" );
-         screen.displayMessageLine( "4 - $100" );
-         screen.displayMessageLine( "5 - $200" );
-         screen.displayMessageLine( "6 - Cancel transaction" );
+         screen.displayMessageLine( "1 - $200" );
+         screen.displayMessageLine( "2 - $400" );
+         screen.displayMessageLine( "3 - $500" );
+         screen.displayMessageLine( "4 - $800" );
+         screen.displayMessageLine( "5 - $1000" );
+         screen.displayMessageLine( "6 - Custom value" );
+         screen.displayMessageLine( "7 - Cancel transaction" );
          screen.displayMessage( "\nChoose a withdrawal amount: " );
 
          int input = keypad.getInput(); // get user input through keypad
@@ -118,13 +119,22 @@ public class Withdrawal extends Transaction
             case 4:
             case 5:
                userChoice = amounts[ input ]; // save user's choice
-               break;       
+               break;
+            case 6: // custom withdrawal amount
+               do {
+                  screen.displayMessage("Enter your withdrawal amount in the multiples of " +
+                          "HKD100, HKD500, or HKD1000 are allowed: ");
+                  userChoice = keypad.getInput();
+                  if (userChoice % 100 != 0)
+                     screen.displayMessage("Invalid value. Please try again.\n\n");
+               } while (userChoice % 100 != 0);
+            break;
             case CANCELED: // the user chose to cancel
                userChoice = CANCELED; // save user's choice
                break;
             default: // the user did not enter a value from 1-6
                screen.displayMessageLine( 
-                  "\nIvalid selection. Try again." );
+                  "\nInvalid selection. Please try again." );
          } // end switch
       } // end while
 
