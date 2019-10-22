@@ -1,7 +1,7 @@
 // Deposit.java
 // Represents a deposit ATM transaction
 
-public class Deposit extends Transaction
+/*public class Deposit extends Transaction
 {
    private double amount; // amount to deposit
    private Keypad keypad; // reference to keypad
@@ -82,7 +82,7 @@ public class Deposit extends Transaction
          return ( double ) input / 100; // return dollar amount 
       } // end else
    } // end method promptForDepositAmount
-} // end class Deposit
+} // end class Deposit*/
 
 
 
