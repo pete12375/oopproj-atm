@@ -1,5 +1,6 @@
 public class CurrentAccount extends Account {
-    private double overdrawnLimit = -10000;
+    private double overdrawnLimit = 10000;
+    private double availableOverdrawnBalance = overdrawnLimit;
 
     public CurrentAccount(int theAccountNumber, int thePIN, double theAvailableBalance, double theTotalBalance) {
         super(theAccountNumber, thePIN, theAvailableBalance, theTotalBalance);
@@ -13,8 +14,11 @@ public class CurrentAccount extends Account {
         overdrawnLimit = limit;
     }
 
-    public void checkLimitOfTotalBalance() {
-        if (getTotalBalance() < overdrawnLimit)
-            System.out.println("You cannot exceed the overdrawn limit which is HK$10,000.");
+    public double getAvailableOverdrawnBalance() {
+        return availableOverdrawnBalance;
+    }
+
+    public void debitAvailableOverdrawnBalance(double amount) {
+        availableOverdrawnBalance -= amount;
     }
 }

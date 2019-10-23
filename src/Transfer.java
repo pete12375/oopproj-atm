@@ -1,12 +1,12 @@
 public class Transfer extends Transaction {
-    private int amount; // amount to transfer
+    private double amount; // amount to transfer
     private int toAccount; // account to transfer
     private Keypad keypad; // reference to keypad
 
     // constant corresponding to menu option to cancel
     private final static int CANCELED = 2;
 
-    // Withdrawal constructor
+    // Transfer constructor
     public Transfer( int userAccountNumber, Screen atmScreen,
                        BankDatabase atmBankDatabase, Keypad atmKeypad )
     {
@@ -15,12 +15,12 @@ public class Transfer extends Transaction {
 
         // initialize references to keypad and cash dispenser
         keypad = atmKeypad;
-    } // end Withdrawal constructor
+    } // end transfer constructor
 
     public void execute()
     {
         boolean cashTransferred = false; // cash was not transferred yet
-        double availableBalance; // amount available for withdrawal
+        double availableBalance; // amount available for transfer
 
         // get references to bank database and screen
         BankDatabase bankDatabase = getBankDatabase();
@@ -29,11 +29,12 @@ public class Transfer extends Transaction {
         // loop until cash is transferred or the user cancels
         do
         {
-            // obtain a chosen withdrawal amount from the user
+            // obtain a chosen transfer amount from the user
             toAccount = displayMenuOfPayee();
+            if (toAccount == 0 || toAccount == CANCELED ) break;
             amount = displayMenuOfAmounts();
 
-            // check whether user chose a withdrawal amount or canceled
+            // check whether user chose a transfer amount or canceled
             if ( amount != CANCELED )
             {
                 // get available balance of account involved
@@ -43,7 +44,7 @@ public class Transfer extends Transaction {
                 // check whether the user has enough money in the account
                 if ( amount <= availableBalance )
                 {
-                    // update the account involved to reflect withdrawal
+                    // update the account involved to reflect transfer
                     bankDatabase.debit( getAccountNumber(), amount );
                     bankDatabase.credit( toAccount, amount );
                     cashTransferred = true; // cash was dispensed
@@ -86,13 +87,13 @@ public class Transfer extends Transaction {
             // determine how to proceed based on the input value
             switch ( input )
             {
-                case 1: // custom withdrawal amount
-                    do {
-                        screen.displayMessage("Enter account no.: ");
-                        userChoice = keypad.getInput();
-                        if(!bankDatabase.accountExistance(userChoice))
-                            screen.displayMessageLine("\nThe account does not exist\n");
-                    } while (!bankDatabase.accountExistance(userChoice));
+                case 1:
+                    screen.displayMessage("Enter account no.: ");
+                    userChoice = keypad.getInput();
+                    if(bankDatabase.accountExistence(userChoice)) {
+                        screen.displayMessageLine("\nAccount does not exist. Please try again.");
+                        userChoice = 0;
+                    }
                     break;
                 case CANCELED: // the user chose to cancel
                     userChoice = CANCELED; // save user's choice
@@ -103,12 +104,12 @@ public class Transfer extends Transaction {
             } // end switch
         } // end while
 
-        return userChoice; // return withdrawal amount or CANCELED
+        return userChoice; // return payee account number or CANCELED
     }
 
-    private int displayMenuOfAmounts()
+    private double displayMenuOfAmounts()
     {
-        int userChoice = 0; // local variable to store return value
+        double userChoice = 0; // local variable to store return value
 
         Screen screen = getScreen(); // get screen reference
 
@@ -125,10 +126,10 @@ public class Transfer extends Transaction {
             // determine how to proceed based on the input value
             switch ( input )
             {
-                case 1: // custom withdrawal amount
+                case 1:
                     do {
                         screen.displayMessage("Enter amount: ");
-                        userChoice = keypad.getInput();
+                        userChoice = keypad.getDoubleInput();
                         if (userChoice <= 0)
                             screen.displayMessage("Invalid value. Please try again.\n\n");
                     } while (userChoice <= 0);
@@ -142,7 +143,6 @@ public class Transfer extends Transaction {
             } // end switch
         } // end while
 
-        return userChoice; // return withdrawal amount or CANCELED
+        return userChoice; // return transfer amount or CANCELED
     } // end method displayMenuOfAmounts
-
 }

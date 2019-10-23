@@ -17,7 +17,9 @@ public class SavingAccount extends Account {
     }
 
     public double getInterestRate() {return InterestRate;}
+
     public int getCompoundedTimes() {return CompoundedTimes;}
+
     public double getAnnualInterest() {
         int ai = 0;
         for (int i = 1; i <= CompoundedTimes; i++)
