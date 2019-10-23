@@ -10,6 +10,6 @@
 
 - [x] (C) Remove the deposit function from the existing system
 
-- [ ] (D) Add a new function – transfer (for transferring fund from one bank account to another bank account)
+- [X] (D) Add a new function – transfer (for transferring fund from one bank account to another bank account)
 
 - [ ] Modified class diagram
