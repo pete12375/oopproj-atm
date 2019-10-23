@@ -123,7 +123,7 @@ public class Withdrawal extends Transaction
             case 6: // custom withdrawal amount
                do {
                   screen.displayMessage("Enter your withdrawal amount in the multiples of " +
-                          "HKD100, HKD500, or HKD1000 are allowed: ");
+                          "HKD100, HKD500, or HKD1000: ");
                   userChoice = keypad.getInput();
                   if (userChoice % 100 != 0)
                      screen.displayMessage("Invalid value. Please try again.\n\n");

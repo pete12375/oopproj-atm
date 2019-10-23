@@ -89,6 +89,12 @@ public class BankDatabase
          return ((SavingAccount)getAccount(userAccountNumber)).getAnnualInterest();
       else return 0;
    }
+
+   public boolean accountExistance( int userAccountNumber ) {
+      if(getAccount(userAccountNumber) == null)
+         return false;
+      else return true;
+   }
 } // end class BankDatabase
 
 
