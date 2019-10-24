@@ -9,8 +9,8 @@ public class BankDatabase
    public BankDatabase()
    {
       accounts = new Account[ 2 ]; // just 3 accounts for testing
-      accounts[ 0 ] = new Account( 12345, 54321, 10000.0, 12000.0 );
-      accounts[ 1 ] = new Account( 98765, 56789, 2000.0, 2000.0 );
+      accounts[ 0 ] = new SavingAccount( 12345, 54321, 10000.0, 12000.0 );
+      accounts[ 1 ] = new CurrentAccount( 98765, 56789, 2000.0, 2000.0 );
    } // end no-argument BankDatabase constructor
    
    // retrieve Account object containing specified account number
