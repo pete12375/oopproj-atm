@@ -9,21 +9,21 @@ public class SavingAccount extends Account {
     }
 
     public void setInterestRate(double newRate) {
-        InterestRate = newRate;
+        interestRate = newRate;
     }
 
     public void setCompoundedTimes(int newTimes) {
-        CompoundedTimes = newTimes;
+        compoundedTimes = newTimes;
     }
 
-    public double getInterestRate() {return InterestRate;}
+    public double getInterestRate() {return interestRate;}
 
-    public int getCompoundedTimes() {return CompoundedTimes;}
+    public int getCompoundedTimes() {return compoundedTimes;}
 
     public double getAnnualInterest() {
         int ai = 0;
-        for (int i = 1; i <= CompoundedTimes; i++)
-            ai += (getTotalBalance() * InterestRate);
+        for (int i = 1; i <= compoundedTimes; i++)
+            ai += (getTotalBalance() * interestRate);
         return ai;
     }
 }
