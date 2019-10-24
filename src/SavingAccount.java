@@ -1,6 +1,6 @@
 public class SavingAccount extends Account {
-    private double InterestRate = 0.001;
-    private int CompoundedTimes = 1;
+    private double interestRate = 0.001;
+    private int compoundedTimes = 1;
 
     // SavingAccount constructor
     public SavingAccount(int theAccountNumber, int thePIN, double theAvailableBalance, double theTotalBalance) {
