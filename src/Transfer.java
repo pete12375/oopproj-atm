@@ -13,7 +13,7 @@ public class Transfer extends Transaction {
         // initialize superclass variables
         super( userAccountNumber, atmScreen, atmBankDatabase );
 
-        // initialize references to keypad and cash dispenser
+        // initialize references to keypad
         keypad = atmKeypad;
     } // end transfer constructor
 
@@ -29,9 +29,11 @@ public class Transfer extends Transaction {
         // loop until cash is transferred or the user cancels
         do
         {
-            // obtain a chosen transfer amount from the user
+            // obtain the account number of payee from the user
             toAccount = displayMenuOfPayee();
+            // loop until the account number of payee is exist
             if (toAccount == 0 || toAccount == CANCELED ) break;
+            // obtain a chosen transfer amount from the user
             amount = displayMenuOfAmounts();
 
             // check whether user chose a transfer amount or canceled
@@ -47,7 +49,7 @@ public class Transfer extends Transaction {
                     // update the account involved to reflect transfer
                     bankDatabase.debit( getAccountNumber(), amount );
                     bankDatabase.credit( toAccount, amount );
-                    cashTransferred = true; // cash was dispensed
+                    cashTransferred = true; // cash was transferred
 
                     screen.displayMessageLine( "\nSuccess" );
                 } // end if
@@ -87,9 +89,10 @@ public class Transfer extends Transaction {
             // determine how to proceed based on the input value
             switch ( input )
             {
-                case 1:
+                case 1: // get the account number of payee from the user
                     screen.displayMessage("Enter account no.: ");
                     userChoice = keypad.getInput();
+                    // check whether the account number is exist
                     if(bankDatabase.accountExistence(userChoice)) {
                         screen.displayMessageLine("\nAccount does not exist. Please try again.");
                         userChoice = 0;
@@ -126,11 +129,11 @@ public class Transfer extends Transaction {
             // determine how to proceed based on the input value
             switch ( input )
             {
-                case 1:
+                case 1: // get the amount to transfer from the user
                     do {
                         screen.displayMessage("Enter amount: ");
                         userChoice = keypad.getDoubleInput();
-                        if (userChoice <= 0)
+                        if (userChoice <= 0) // check whether the input is valid
                             screen.displayMessage("Invalid value. Please try again.\n\n");
                     } while (userChoice <= 0);
                     break;

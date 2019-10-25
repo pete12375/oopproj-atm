@@ -18,8 +18,9 @@ public class Keypad
       return input.nextInt(); // we assume that user enters an integer  
    } // end method getInput
 
+   // return decimal number entered by user
    public double getDoubleInput()
    {
-      return input.nextDouble(); // we assume that user enters an integer
+      return input.nextDouble(); // we assume that user enters decimal number
    } // end method getInput
 } // end class Keypad

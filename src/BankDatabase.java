@@ -65,6 +65,7 @@ public class BankDatabase
       getAccount( userAccountNumber ).debit( amount );
    } // end method debit
 
+   // check whether the account is exist
    public boolean accountExistence(int userAccountNumber ) {
       return getAccount(userAccountNumber) == null;
    }
